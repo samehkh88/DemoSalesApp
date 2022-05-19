@@ -45,41 +45,41 @@ public class Controller implements ActionListener, ListSelectionListener {
             case "Load File":
                 loadFile();
                 break;
-                
+
             case "Save File":
                 //saveFile();
                 break;
-                
+
             case "Create New Invoice":
                 // open Invoice popup
                 createNewInvoice();
                 break;
-                
+
             case "Create Invoice":
                 // add item in Invoice Dialog
                 AddNewInvoice();
                 break;
-                
+
             case "Close Invoice":
                 // close Dialog invoice
                 CloseInvoice();
                 break;
-                
+
             case "Delete Selected Invoice":
                 // Delete row from invoice table
                 deleteSelectedInvoice();
                 break;
-                
+
             case "Create New Item":
                 // open Dialog line
                 createNewLine();
                 break;
-                
-             case "Delete Line Item":
+
+            case "Delete Line Item":
                 // close Dialog line
                 deleteLineItem();
                 break;
-                
+
             case "Close Line popup":
                 // close Dialog line
                 CloseNewItem();
@@ -91,17 +91,18 @@ public class Controller implements ActionListener, ListSelectionListener {
     @Override
     public void valueChanged(ListSelectionEvent e) {
         int rowIndex = mainframe.getInvoiceTable().getSelectedRow();
-        if (rowIndex != -1){
-        InvoiceFile uplodedFile = mainframe.getInvoices().get(rowIndex);
-        mainframe.ShowInvoiceNumber().setText("" + uplodedFile.getNum());
-        mainframe.ShowInvoiceDate().setText(uplodedFile.getDate());
-        mainframe.ShowCustomerName().setText(uplodedFile.getCustomerName());
-        mainframe.ShowinvoiceTotal().setText("" + uplodedFile.getTotalInvoice());
-        TableInvoiceLineModule linesTableObj = new TableInvoiceLineModule(uplodedFile.getLines());
-        mainframe.getlinesTable().setModel(linesTableObj);
-        linesTableObj.fireTableDataChanged();
+        if (rowIndex != -1) {
+            InvoiceFile uplodedFile = mainframe.getInvoices().get(rowIndex);
+            mainframe.ShowInvoiceNumber().setText("" + uplodedFile.getNum());
+            mainframe.ShowInvoiceDate().setText(uplodedFile.getDate());
+            mainframe.ShowCustomerName().setText(uplodedFile.getCustomerName());
+            mainframe.ShowinvoiceTotal().setText("" + uplodedFile.getTotalInvoice());
+            TableInvoiceLineModule linesTableObj = new TableInvoiceLineModule(uplodedFile.getLines());
+            mainframe.getlinesTable().setModel(linesTableObj);
+            linesTableObj.fireTableDataChanged();
+        }
     }
-    }
+
     private void loadFile() {
         JFileChooser fc = new JFileChooser();
         try {
@@ -157,14 +158,14 @@ public class Controller implements ActionListener, ListSelectionListener {
             ex.printStackTrace();
         }
     }
-    
+
 // method for open the Invoice Dialog
     private void createNewInvoice() {
         InvoicepopupObj = new Invoicepopup(mainframe);
         InvoicepopupObj.setVisible(true);
     }
 
-    // method for delete inoice from Tabel   
+// method for delete inoice from Tabel   
     private void deleteSelectedInvoice() {
         // return the index for the selected row 
         int selectedInvoiceRow = mainframe.getInvoiceTable().getSelectedRow();
@@ -180,21 +181,27 @@ public class Controller implements ActionListener, ListSelectionListener {
         InvoicepopupObj.dispose();
         InvoicepopupObj = null;
     }
+    
 // method for opne  the Line Dialog
     private void createNewLine() {
         LinePopupObj = new LinePopup(mainframe);
         LinePopupObj.setVisible(true);
     }
-    
-        private void deleteLineItem() {
-       // return the index for the selected row from Line Table
+
+    private void deleteLineItem() {
+        // return the index for the selected row from Line Table
         int selectedLineRow = mainframe.getlinesTable().getSelectedRow();
         if (selectedLineRow != -1) {
-           // mainframe.get.remove(selectedLineRow);
-           // mainframe.getTableInvoiceModule().fireTableDataChanged();  
+            TableInvoiceLineModule linesTableModel = (TableInvoiceLineModule) mainframe.getlinesTable().getModel();
+            linesTableModel.getLines().remove(selectedLineRow);
+            // update table Line
+            linesTableModel.fireTableDataChanged();
+            // update table invoice 
+            mainframe.getTableInvoiceModule().fireTableDataChanged();
+        }
     }
-        }  
 // method for Close the Invoice Dialog
+
     private void CloseNewItem() {
         LinePopupObj.setVisible(false);
         LinePopupObj.dispose();
@@ -202,32 +209,25 @@ public class Controller implements ActionListener, ListSelectionListener {
     }
 
     public void AddNewInvoice() {
-
-        String EnteredcustomerName = this.InvoicepopupObj.getCustomerNameField().getText();
+        //get the entered date
         String EnteredinvoiceDate = this.InvoicepopupObj.getDateField().getText();
-        Date invoiceDateInput = new Date();
-        this.InvoicepopupObj.setVisible(false);
-        int x = (getMaxNum() + 1);
-        InvoiceFile newInvoiceHeader = new InvoiceFile(x, EnteredinvoiceDate, EnteredcustomerName);
-        this.invoicesArr.add(newInvoiceHeader);
-        this.TableInvoiceModuleObj = new TableInvoiceModule(this.invoicesArr);
-        this.mainframe.getInvoiceTable().setModel(this.TableInvoiceModuleObj);
-        this.TableInvoiceModuleObj.fireTableDataChanged();
-    }
-
-    public int getMaxNum() {
-        System.out.println("value before is " + invoicesArr.size());
-        int num = 0;
-        Iterator val = this.invoicesArr.iterator();
-
-        while (val.hasNext()) {
-            InvoiceFile invoicef = (InvoiceFile) val.next();
-            if (invoicef.getNum() > num) {
-                num = invoicef.getNum();
-            }
-        }
-        System.out.print("the value is : " + num);
-        return num;
+        //get the entered Customer name
+        String EnteredcustomerName = this.InvoicepopupObj.getCustomerNameField().getText();
+        
+        int InvoiceNum  = (mainframe.getNextInvoiceNumber() + 1);
+        
+        // create new Invoice with new entered data 
+        InvoiceFile newInvoiceHeader = new InvoiceFile(InvoiceNum, EnteredinvoiceDate, EnteredcustomerName);
+        // Add Invoice to the Array
+        mainframe.getInvoices().add(newInvoiceHeader);
+        // update the Table
+        mainframe.getTableInvoiceModule().fireTableDataChanged();
+        
+        // close the Dialog
+        InvoicepopupObj.setVisible(false);
+        InvoicepopupObj.dispose();
+        InvoicepopupObj = null;
+        
     }
 
 

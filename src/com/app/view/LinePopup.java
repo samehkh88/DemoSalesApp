@@ -40,7 +40,8 @@ public class LinePopup extends JDialog{
 
         Add.addActionListener(frame.getActionListener());
         CloseDialog.addActionListener(frame.getActionListener());
-        setLayout(new GridLayout(4, 2));
+        setLayout(new GridLayout(3, 2));
+        setLocation(400, 400);
 
         add(itemNameLabel);
         add(itemNameField);

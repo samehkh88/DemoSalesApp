@@ -12,6 +12,10 @@ public class TableInvoiceLineModule extends AbstractTableModel {
     public TableInvoiceLineModule(ArrayList<LineFile> linesfile) {
         this.LineFileObject = linesfile;
     }
+    
+    public ArrayList<LineFile> getLines() {
+        return LineFileObject;
+    }
 
     @Override
     public int getRowCount() {

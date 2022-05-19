@@ -174,14 +174,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel5.setText("Invoices Tabel");
 
-        ShowInvoiceNumber.setText("jLabel6");
-
-        ShowInvoiceDate.setText("jLabel6");
-
-        ShowCustomerName.setText("jLabel6");
-
-        ShowinvoiceTotal.setText("jLabel6");
-
         jMenu1.setText("File");
 
         loadFileMenuItem.setText("Load File");
@@ -354,4 +346,17 @@ public class MainFrame extends javax.swing.JFrame {
     public Controller getActionListener() {
         return controller;
     }
+    
+        public int getNextInvoiceNumber() {
+        int num = 0;
+        //loop to know that last number from all Invoiced
+        for(InvoiceFile InvFile : getInvoices())
+        {
+             if (InvFile.getNum() > num)
+                num = InvFile.getNum();
+        }
+        return num;
+    }
+        
+        
 }

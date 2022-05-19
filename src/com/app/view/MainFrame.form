@@ -268,24 +268,12 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="ShowInvoiceNumber">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel6"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="ShowInvoiceDate">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel6"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="ShowCustomerName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel6"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="ShowinvoiceTotal">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel6"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

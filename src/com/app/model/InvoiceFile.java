@@ -47,7 +47,7 @@ public class InvoiceFile {
         this.date = date;
     }
     
-    //this method to calc the total for inoice
+    //this method to calc the total for invoice
     public double getTotalInvoice()
     {
         double total = 0.0;

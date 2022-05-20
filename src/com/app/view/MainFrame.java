@@ -2,6 +2,7 @@ package com.app.view;
 
 import com.app.controller.Controller;
 import com.app.model.InvoiceFile;
+import com.app.model.LineFile;
 import com.app.model.TableInvoiceLineModule;
 
 import com.app.model.TableInvoiceModule;
@@ -45,8 +46,9 @@ public class MainFrame extends javax.swing.JFrame {
     private ArrayList<InvoiceFile> invoices;
     private Controller controller = new Controller(this);
     private Invoicepopup Invoicepopup;
-    private TableInvoiceLineModule TableInvoiceLineModuleObj ; 
-    private TableInvoiceModule TableInvoiceModuleObj ;
+    private TableInvoiceLineModule TableInvoiceLineModuleObj;
+    private TableInvoiceModule TableInvoiceModuleObj;
+
     /**
      * Creates new form InvoiceFrame
      */
@@ -292,71 +294,62 @@ public class MainFrame extends javax.swing.JFrame {
         return Invoicepopup;
     }
 
-   
     public void setTableInvoiceModuleObj(TableInvoiceModule TableInvoiceModuleObj) {
         this.TableInvoiceModuleObj = TableInvoiceModuleObj;
     }
-    
+
     public TableInvoiceModule getTableInvoiceModule() {
         if (TableInvoiceModuleObj == null) {
             TableInvoiceModuleObj = new TableInvoiceModule(getInvoices());
         }
         return TableInvoiceModuleObj;
     }
-    
+
     public JTable getInvoiceTable() {
         return MaininvoiceTable;
     }
 
-    
     public TableInvoiceLineModule getTableInvoiceLineModule() {
         return TableInvoiceLineModuleObj;
     }
-    
+
     // use it to pass the data right section "Invoice number"
-    public JLabel ShowInvoiceNumber()
-    {
-    return ShowInvoiceNumber ;
+    public JLabel ShowInvoiceNumber() {
+        return ShowInvoiceNumber;
     }
-    
+
     // use it to pass the data right section "Invoice date"
-    public JLabel ShowInvoiceDate()
-    {
-    return ShowInvoiceDate ;
+    public JLabel ShowInvoiceDate() {
+        return ShowInvoiceDate;
     }
-    
+
     // use it to pass the data right section "Customer name"
-    public JLabel ShowCustomerName()
-    {
-    return ShowCustomerName ;
+    public JLabel ShowCustomerName() {
+        return ShowCustomerName;
     }
-    
+
     // use it to pass the data right section "total"
-    
-    public JLabel ShowinvoiceTotal()
-    {
-    return ShowinvoiceTotal ;
+    public JLabel ShowinvoiceTotal() {
+        return ShowinvoiceTotal;
     }
-    
-    public JTable getlinesTable()
-    {
-    return linesTable ;
+
+    public JTable getlinesTable() {
+        return linesTable;
     }
-    
+
     public Controller getActionListener() {
         return controller;
     }
-    
-        public int getNextInvoiceNumber() {
+
+    public int getNextInvoiceNumber() {
         int num = 0;
         //loop to know that last number from all Invoiced
-        for(InvoiceFile InvFile : getInvoices())
-        {
-             if (InvFile.getNum() > num)
+        for (InvoiceFile InvFile : getInvoices()) {
+            if (InvFile.getNum() > num) {
                 num = InvFile.getNum();
+            }
         }
         return num;
     }
-        
-        
+
 }

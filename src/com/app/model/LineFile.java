@@ -7,8 +7,7 @@ public class LineFile {
     private int Qty;
     private InvoiceFile invoice;
 
-    public LineFile(int Refnum, String itemName , double price ,  int count, InvoiceFile invoice) {
-        this.num = Refnum;
+    public LineFile(String itemName , double price ,  int count, InvoiceFile invoice) {
         this.productName = itemName;
         this.unitPrice = price;
         this.Qty = count;

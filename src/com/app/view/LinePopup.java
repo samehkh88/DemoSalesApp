@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.app.view;
 
 import java.awt.GridLayout;
@@ -12,58 +8,58 @@ import javax.swing.JTextField;
 
 public class LinePopup extends JDialog{
     
-    private JTextField itemNameField;
-    private JTextField itemCountField;
-    private JTextField itemPriceField;
-    private JLabel itemNameLabel;
-    private JLabel itemCountLabel;
-    private JLabel itemPriceLabel;
-    private JButton Add;
+    private JTextField ProductNameField;
+    private JTextField ProductQTYField;
+    private JTextField ProductPriceField;
+    private JLabel NameLabel;
+    private JLabel QTYLabel;
+    private JLabel PriceLabel;
+    private JButton AddLine;
     private JButton CloseDialog;
 
     public LinePopup(MainFrame frame) {
         
-        itemNameField = new JTextField(25);
-        itemNameLabel = new JLabel("Item Name");
+        ProductNameField = new JTextField(25);
+        NameLabel = new JLabel("   Product Name");
 
-        itemCountField = new JTextField(25);
-        itemCountLabel = new JLabel("Item Count");
+        ProductQTYField = new JTextField(25);
+        QTYLabel = new JLabel("   Product QTY");
 
-        itemPriceField = new JTextField(25);
-        itemPriceLabel = new JLabel("Item Price");
+        ProductPriceField = new JTextField(25);
+        PriceLabel = new JLabel("   Product Price");
 
-        Add = new JButton("OK");
-        CloseDialog = new JButton("Cancel");
+        AddLine = new JButton("Create Line");
+        CloseDialog = new JButton("Close");
 
-        Add.setActionCommand("Sucess Create Line");
+        AddLine.setActionCommand("Sucess Create Line");
         CloseDialog.setActionCommand("Close Line popup");
 
-        Add.addActionListener(frame.getActionListener());
+        AddLine.addActionListener(frame.getActionListener());
         CloseDialog.addActionListener(frame.getActionListener());
-        setLayout(new GridLayout(3, 2));
-        setLocation(400, 400);
+        setLayout(new GridLayout(4, 2));
+        setLocation(500, 500);
 
-        add(itemNameLabel);
-        add(itemNameField);
-        add(itemCountLabel);
-        add(itemCountField);
-        add(itemPriceLabel);
-        add(itemPriceField);
-        add(Add);
+        add(NameLabel);
+        add(ProductNameField);
+        add(QTYLabel);
+        add(ProductQTYField);
+        add(PriceLabel);
+        add(ProductPriceField);
+        add(AddLine);
         add(CloseDialog);
 
         pack();
     }
 
-    public JTextField getItemNameField() {
-        return itemNameField;
+    public JTextField getProductNameField() {
+        return ProductNameField;
     }
 
-    public JTextField getItemCountField() {
-        return itemCountField;
+    public JTextField getProductQTYField() {
+        return ProductQTYField;
     }
 
-    public JTextField getItemPriceField() {
-        return itemPriceField;
+    public JTextField getProductPriceField() {
+        return ProductPriceField;
     }
 }

@@ -125,7 +125,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 
                     InvoiceFile invoice = new InvoiceFile(invoiceNum, invoiceDate, customerName);
                     invoicesArray.add(invoice);
-                }
+                } 
                 
                 JOptionPane.showMessageDialog(mainframe, "Please upload Lines File",
                 "Invoice Header", JOptionPane.INFORMATION_MESSAGE);     
@@ -159,7 +159,12 @@ public class Controller implements ActionListener, ListSelectionListener {
                 mainframe.setTableInvoiceModuleObj(TableInvoiceModule);
                 mainframe.getInvoiceTable().setModel(TableInvoiceModule);
                 // data change
-                mainframe.getTableInvoiceLineModule().fireTableDataChanged();
+                try{
+                mainframe.getTableInvoiceModule().fireTableDataChanged();
+                } catch (Exception e)
+                {
+                    System.err.println(e.getMessage());
+                }
 
             }
         } catch (IOException ex) {
@@ -283,34 +288,43 @@ public class Controller implements ActionListener, ListSelectionListener {
     // method for save File 
     private void SaveFile() {
         ArrayList<InvoiceFile> invoicesObj = mainframe.getInvoices();
-        String headers = "";
-        String lines = "";
+        String headerF = "";
+        String lineF = "";
         for (InvoiceFile Invfile : invoicesObj) {
             String invCSV = Invfile.getInvoiceFileCSV();
-            headers += invCSV;
-            headers += "\n";
+            //add new row
+            headerF += invCSV;
+            // add new line
+            headerF += "\n";
 
             for (LineFile line : Invfile.getLines()) {
                 String lineCSV = line.getLineFormatCSV();
-                lines += lineCSV;
-                lines += "\n";
+                //add new row
+                lineF += lineCSV;
+                // add new line
+                lineF += "\n";
             }
         }
         
         try {
+            // open new file chooser
             JFileChooser fc = new JFileChooser();
+            // Save Dialog not open Dialog
             int result = fc.showSaveDialog(mainframe);
             if (result == JFileChooser.APPROVE_OPTION) {
+                
                 File headerFile = fc.getSelectedFile();
-                FileWriter hfw = new FileWriter(headerFile);
-                hfw.write(headers);
-                hfw.flush();
-                hfw.close();
+                FileWriter FL = new FileWriter(headerFile);
+                // Write in file header and close
+                FL.write(headerF);
+                FL.flush();
+                FL.close();
                 result = fc.showSaveDialog(mainframe);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File lineFile = fc.getSelectedFile();
                     FileWriter lfw = new FileWriter(lineFile);
-                    lfw.write(lines);
+                    // Write in file line and close
+                    lfw.write(lineF);
                     lfw.flush();
                     lfw.close();
                 }

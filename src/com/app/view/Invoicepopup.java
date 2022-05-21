@@ -17,9 +17,9 @@ public class Invoicepopup extends JDialog{
 
     public Invoicepopup(MainFrame f) {
         
-        customerNameLabel = new JLabel("Customer Name");
+        customerNameLabel = new JLabel("  Customer Name");
         customerNameField = new JTextField("");
-        dateLabel = new JLabel("Invoice Date");
+        dateLabel = new JLabel("  Invoice Date");
         dateField = new JTextField("");
         saveButton = new JButton("Save");
         saveButton.setActionCommand("Create Invoice");

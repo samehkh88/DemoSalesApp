@@ -43,6 +43,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem loadFileMenuItem;
     private javax.swing.JMenuItem saveFileMenuItem;
     // End of variables declaration//GEN-END:variables
+   
     private ArrayList<InvoiceFile> invoices;
     private Controller controller = new Controller(this);
     private Invoicepopup Invoicepopup;
@@ -290,10 +291,6 @@ public class MainFrame extends javax.swing.JFrame {
         this.invoices = invoices;
     }
 
-    public Invoicepopup getHeaderDialog() {
-        return Invoicepopup;
-    }
-
     public void setTableInvoiceModuleObj(TableInvoiceModule TableInvoiceModuleObj) {
         this.TableInvoiceModuleObj = TableInvoiceModuleObj;
     }
@@ -340,7 +337,7 @@ public class MainFrame extends javax.swing.JFrame {
     public Controller getActionListener() {
         return controller;
     }
-
+    
     public int getNextInvoiceNumber() {
         int num = 0;
         //loop to know that last number from all Invoiced

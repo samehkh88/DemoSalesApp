@@ -10,6 +10,7 @@ import com.app.view.MainFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,10 +41,6 @@ public class Controller implements ActionListener, ListSelectionListener {
         switch (actionCommand) {
             case "Load File":
                 loadFile();
-                break;
-
-            case "Save File":
-                //saveFile();
                 break;
 
             case "Create New Invoice":
@@ -85,7 +82,12 @@ public class Controller implements ActionListener, ListSelectionListener {
                 // close Dialog line
                 CloseNewItem();
                 break;
-
+                
+            case "Save File":
+                // save the file
+                SaveFile();
+                break;
+                
         }
     }
 
@@ -107,6 +109,8 @@ public class Controller implements ActionListener, ListSelectionListener {
     private void loadFile() {
         JFileChooser fc = new JFileChooser();
         try {
+        JOptionPane.showMessageDialog(mainframe, "Please upload Invoice File",
+                "Invoice Header", JOptionPane.INFORMATION_MESSAGE);
             int result = fc.showOpenDialog(mainframe);
             if (result == JFileChooser.APPROVE_OPTION) {
                 File headerFile = fc.getSelectedFile();
@@ -122,6 +126,10 @@ public class Controller implements ActionListener, ListSelectionListener {
                     InvoiceFile invoice = new InvoiceFile(invoiceNum, invoiceDate, customerName);
                     invoicesArray.add(invoice);
                 }
+                
+                JOptionPane.showMessageDialog(mainframe, "Please upload Lines File",
+                "Invoice Header", JOptionPane.INFORMATION_MESSAGE);     
+                        
                 result = fc.showOpenDialog(mainframe);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File lineFile = fc.getSelectedFile();
@@ -272,6 +280,43 @@ public class Controller implements ActionListener, ListSelectionListener {
         }
     }
     
- 
+    // method for save File 
+    private void SaveFile() {
+        ArrayList<InvoiceFile> invoicesObj = mainframe.getInvoices();
+        String headers = "";
+        String lines = "";
+        for (InvoiceFile Invfile : invoicesObj) {
+            String invCSV = Invfile.getInvoiceFileCSV();
+            headers += invCSV;
+            headers += "\n";
 
+            for (LineFile line : Invfile.getLines()) {
+                String lineCSV = line.getLineFormatCSV();
+                lines += lineCSV;
+                lines += "\n";
+            }
+        }
+        
+        try {
+            JFileChooser fc = new JFileChooser();
+            int result = fc.showSaveDialog(mainframe);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File headerFile = fc.getSelectedFile();
+                FileWriter hfw = new FileWriter(headerFile);
+                hfw.write(headers);
+                hfw.flush();
+                hfw.close();
+                result = fc.showSaveDialog(mainframe);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File lineFile = fc.getSelectedFile();
+                    FileWriter lfw = new FileWriter(lineFile);
+                    lfw.write(lines);
+                    lfw.flush();
+                    lfw.close();
+                }
+            }
+        } catch (Exception ex) {
+
+        }
+    }
 }

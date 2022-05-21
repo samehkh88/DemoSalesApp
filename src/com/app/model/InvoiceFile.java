@@ -47,6 +47,7 @@ public class InvoiceFile {
         this.date = date;
     }
     
+    
     //this method to calc the total for invoice
     public double getTotalInvoice()
     {
@@ -58,5 +59,9 @@ public class InvoiceFile {
         return total ;
     }
 
+    public String getInvoiceFileCSV()
+    {
+    return num + "," + date + "," + customerName;
+    }
 
 }

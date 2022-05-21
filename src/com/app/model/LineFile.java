@@ -54,5 +54,10 @@ public class LineFile {
     public InvoiceFile getInvoice() {
         return invoice;
     }
+    
+    public String getLineFormatCSV() 
+    {
+    return invoice.getNum() + "," + productName + "," + unitPrice + "," + Qty;
+    }
 
 }
